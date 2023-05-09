@@ -1,0 +1,50 @@
+exo 1:
+  SELECT nom, annéeNaiss FROM artiste WHERE annéeNaiss > '1950';
+
+exo 2:
+  SELECT titre, genre FROM film WHERE genre = 'Drame';
+
+exo 3:
+  SELECT * FROM role INNER JOIN artiste WHERE role.idActeur = artiste.idArtiste AND role.idActeur AND artiste.nom = 'Willis' AND artiste.prénom = 'Bruce';
+
+exo 4:
+  SELECT titre, artiste.nom, artiste.prénom FROM film INNER JOIN artiste ON artiste.idArtiste = film.idRéalisateur WHERE film.titre LIKE "Memento";
+
+exo 5:
+  SELECT DISTINCT film.titre, note FROM notation INNER JOIN film ON film.titre = 'Fargo';
+
+exo 6:
+  SELECT nom, prénom FROM role INNER JOIN artiste WHERE idActeur = idArtiste AND nomRôle = 'Chewbacca';
+
+exo 7:
+  SELECT titre FROM film, artiste, role WHERE film.idFilm = role.idFilm AND idActeur = idArtiste AND nom ='Willis' and nomRôle='John McClane';
+
+exo 8:
+  SELECT prénom, nom, nomRôle FROM film, artiste, role WHERE titre = 'Sueurs froides' AND film.idFilm = role.idFilm AND role.idActeur = artiste.idArtiste;
+
+exo 9:
+  SELECT titre, note, prénom, nom FROM film, notation, internaute WHERE film.idFilm = notation.idFilm AND internaute.email = notation.email AND internaute.nom = 'nom0' and internaute.prénom = 'prénom0';
+
+exo 10:
+  SELECT film.titre, a1.nom AS artiste1, a2.nom AS artiste2 FROM film JOIN role ON film.idFilm = role.idFilm JOIN artiste a1 ON role.idActeur = a1.idArtiste AND a1.nom = 'Depp' JOIN artiste a2 ON film.idRéalisateur = a2.idArtiste AND a2.nom = 'Burton';
+
+exo 11:
+  SELECT film.titre, role.nomRôle FROM film JOIN role ON film.idFilm = role.idFilm JOIN artiste ON role.idActeur = artiste.idArtiste AND artiste.nom = 'Allen' AND artiste.prénom = 'Woody';
+
+exo 12:
+  SELECT artiste.prénom, artiste.nom, role.nomRôle, film.titre FROM role JOIN film ON film.idFilm = role.idFilm JOIN artiste ON film.idRéalisateur = artiste.idArtiste AND role.idActeur = artiste.idArtiste;
+
+exo 13:
+  SELECT film.titre FROM film JOIN artiste ON film.idRéalisateur = artiste.idArtiste AND artiste.nom = 'Tarantino' WHERE NOT EXISTS ( SELECT * FROM role WHERE film.idFilm = role.idFilm AND role.idActeur = artiste.idArtiste );
+
+exo 14:
+  SELECT prénom, nom, nomRôle FROM role, artiste, film AS film1, film AS film2 WHERE film1.idFilm = role.idFilm AND film2.idRéalisateur = artiste.idArtiste AND role.idActeur = artiste.idArtiste;
+
+exo 15:
+  SELECT titre FROM film JOIN artiste ON film.idRéalisateur = artiste.idArtiste WHERE artiste.nom = 'Hitchcock' AND NOT EXISTS ( SELECT '' FROM artiste JOIN role ON artiste.idArtiste = role.idActeur WHERE role.idFilm = film.idFilm AND nom = 'Stewart' );  
+
+exo 16:
+  SELECT a1.prénom AS prénom1, a1.nom AS nom1, titre, a2.prénom AS prénom2, a2.nom AS nom2 FROM role, film, artiste AS a1, artiste AS a2 where film.idFilm = role.idFilm AND a1.idArtiste != a2.idArtiste AND film.idRéalisateur = a1.idArtiste AND role.idActeur = a2.idArtiste AND a1.prénom = a2.prénom; 
+
+exo 17:
+  SELECT titre FROM film WHERE idFilm NOT IN (SELECT idFilm FROM role); 
